@@ -41,14 +41,3 @@ yarn-error.log*
 next-env.d.ts
 
 /app/generated/prisma
-<<<<<<< HEAD:hrms/.gitignore
-=======
-
-/app/generated/prisma
-
-/app/generated/prisma
-
-/app/generated/prisma
-
-/app/generated/prisma
->>>>>>> 98dee2b4247331a6a2db3d41b80611367856cd04:hrms-backend/.gitignore
