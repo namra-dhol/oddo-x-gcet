@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Employee {
+  id             Int             @id @default(autoincrement())
+  name           String
+  designation    String?
+  status         String          @default("active")
+  email          String?         @unique
+  mobile         String?
+  address        String?
+  dob            DateTime?
+  bankDetails    String?         @map("bank_details")
+  role           String          @default("employee")
+  bio            String?
+  skills         String?
+  certifications String?
+
+  attendance     Attendance[]
+  leaveRequests  LeaveRequest[]
+  salaryConfig   SalaryConfig?
+
+  @@map("employees")
+}
+
+model Attendance {
+  id            Int              @id @default(autoincrement())
+  employeeId    Int              @map("employee_id")
+  date          DateTime
+  checkInTime   DateTime?        @map("check_in_time")
+  checkOutTime  DateTime?        @map("check_out_time")
+  status        String
+  totalHours    Decimal?         @map("total_hours")
+  overtimeHours Decimal?         @map("overtime_hours")
+
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@map("attendance")
+}
+
+model LeaveRequest {
+  id            Int        @id @default(autoincrement())
+  employeeId    Int        @map("employee_id")
+  type          String
+  startDate     DateTime   @map("start_date")
+  endDate       DateTime   @map("end_date")
+  reason        String?
+  attachmentUrl String?    @map("attachment_url")
+  status        String     @default("pending")
+
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@map("leave_requests")
+}
+
+model SalaryConfig {
+  id                  Int      @id @default(autoincrement())
+  employeeId          Int      @unique @map("employee_id")
+  basicSalary         Decimal? @map("basic_salary")
+  hra                 Decimal?
+  allowances          Decimal?
+  professionalTax     Decimal? @map("professional_tax")
+  bonusPercentage     Decimal? @default(8.33) @map("bonus_percentage")
+  allowancePercentage Decimal? @default(11.67) @map("allowance_percentage")
+  totalYearlyWage     Decimal? @map("total_yearly_wage")
+
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@map("salary_config")
+}

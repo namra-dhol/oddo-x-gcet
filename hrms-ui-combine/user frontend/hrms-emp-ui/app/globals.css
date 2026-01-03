@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  /* Base Colors - Zinc Scale */
+  --background: #ffffff;
+  --foreground: #09090b;
+  /* Zinc 950 */
+
+  /* Muted / Secondary */
+  --muted: #71717a;
+  /* Zinc 500 */
+  --muted-foreground: #52525b;
+  /* Zinc 600 */
+  --muted-bg: #f4f4f5;
+  /* Zinc 100 */
+
+  /* Borders & Dividers */
+  --border: #e4e4e7;
+  /* Zinc 200 */
+  --input-border: #d4d4d8;
+  /* Zinc 300 */
+
+  /* Primary Action */
+  --primary: #18181b;
+  /* Zinc 900 */
+  --primary-foreground: #ffffff;
+  --primary-hover: #27272a;
+  /* Zinc 800 */
+
+  /* Secondary / Surface */
+  --card-bg: #ffffff;
+  --card-border: #e4e4e7;
+
+  /* Status Colors (Desaturated for professionalism) */
+  --success: #15803d;
+  /* Green 700 */
+  --success-bg: #f0fdf4;
+  --warning: #b45309;
+  /* Amber 700 */
+  --warning-bg: #fffbeb;
+  --danger: #b91c1c;
+  /* Red 700 */
+  --danger-bg: #fef2f2;
+
+  /* UI Tokens */
+  --radius: 0.5rem;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  /* Softer shadow */
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    /* Tight tracking for modern feel */
+    color: var(--foreground);
+  }
+}
+
+/* Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}

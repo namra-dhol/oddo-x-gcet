@@ -1,0 +1,78 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Variants */
+.primary {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    border-color: var(--primary);
+}
+
+.primary:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+.secondary {
+    background-color: transparent;
+    color: var(--foreground);
+    border-color: var(--border);
+}
+
+.secondary:hover:not(:disabled) {
+    background-color: var(--muted-bg);
+}
+
+.danger {
+    background-color: var(--danger);
+    color: white;
+}
+
+.danger:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+.outline {
+    background-color: transparent;
+    border-color: var(--border);
+    color: var(--foreground);
+}
+
+.outline:hover:not(:disabled) {
+    background-color: var(--muted-bg);
+    border-color: var(--foreground);
+}
+
+/* Sizes */
+.sm {
+    height: 2rem;
+    padding: 0 0.75rem;
+    font-size: 0.875rem;
+}
+
+.md {
+    height: 2.5rem;
+    padding: 0 1rem;
+    font-size: 0.875rem;
+}
+
+.lg {
+    height: 3rem;
+    padding: 0 1.5rem;
+    font-size: 1rem;
+}
