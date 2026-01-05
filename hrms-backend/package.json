@@ -9,15 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
-<<<<<<< HEAD:hrms/package.json
-    "@prisma/client": "^7.2.0",
-=======
     "@prisma/adapter-mariadb": "^7.2.0",
     "@prisma/client": "^7.2.0",
     "bcrypt": "^6.0.0",
     "jsonwebtoken": "^9.0.3",
     "mariadb": "^3.4.5",
->>>>>>> 98dee2b4247331a6a2db3d41b80611367856cd04:hrms-backend/package.json
     "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3"

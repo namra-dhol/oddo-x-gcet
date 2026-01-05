@@ -1,14 +1,112 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../app/generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
+}
+
+model attendance {
+  id             Int                @id @default(autoincrement())
+  employee_id    Int?
+  date           DateTime?          @db.Date
+  check_in_time  DateTime?          @db.Time(0)
+  check_out_time DateTime?          @db.Time(0)
+  status         attendance_status?
+  total_hours    Decimal?           @db.Decimal(5, 2)
+  overtime_hours Decimal?           @db.Decimal(5, 2)
+
+  @@index([employee_id], map: "employee_id")
+}
+
+model employees {
+  id                    Int               @id @default(autoincrement())
+  name                  String            @db.VarChar(100)
+  designation           String?           @db.VarChar(100)
+  status                employees_status? @default(active)
+  email                 String?           @unique(map: "email") @db.VarChar(100)
+  mobile                String?           @db.VarChar(20)
+  address               String?           @db.Text
+  dob                   DateTime?         @db.Date
+  bank_details          String?           @db.Text
+  role                  employees_role?   @default(employee)
+  bio                   String?           @db.Text
+  skills                Json?
+  certifications        Json?
+  password_hash         String            @db.VarChar(255)
+  is_temp_password      Boolean?          @default(true)
+  password_last_changed DateTime?         @default(now()) @db.Timestamp(0)
+}
+
+model leave_requests {
+  id             Int                    @id @default(autoincrement())
+  employee_id    Int?
+  type           leave_requests_type?
+  start_date     DateTime?              @db.Date
+  end_date       DateTime?              @db.Date
+  reason         String?                @db.Text
+  attachment_url String?                @db.VarChar(255)
+  status         leave_requests_status? @default(pending)
+
+  @@index([employee_id], map: "employee_id")
+}
+
+model salary_config {
+  id                   Int      @id @default(autoincrement())
+  employee_id          Int?     @unique(map: "employee_id")
+  basic_salary         Decimal? @db.Decimal(15, 2)
+  hra                  Decimal? @db.Decimal(15, 2)
+  allowances           Decimal? @db.Decimal(15, 2)
+  professional_tax     Decimal? @db.Decimal(15, 2)
+  bonus_percentage     Decimal? @default(8.33) @db.Decimal(5, 2)
+  allowance_percentage Decimal? @default(11.67) @db.Decimal(5, 2)
+  total_yearly_wage    Decimal? @db.Decimal(15, 2)
+}
+
+model time_off {
+  id         Int       @id @default(autoincrement())
+  name       String    @db.VarChar(100)
+  userid     Int
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model user {
+  userid     Int       @id @default(autoincrement())
+  username   String    @db.VarChar(100)
+  useremail  String?   @unique(map: "useremail") @db.VarChar(150)
+  userphone  String?   @db.VarChar(20)
+  password   String    @db.VarChar(255)
+  roleid     Int
+  istempary  Boolean?  @default(true)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+}
+
+enum leave_requests_type {
+  sick
+  casual
+  unpaid
+}
+
+enum employees_status {
+  active
+  inactive
+  on_leave
+}
+
+enum attendance_status {
+  present
+  absent
+  half_day
+}
+
+enum leave_requests_status {
+  pending
+  approved
+  rejected
+}
+
+enum employees_role {
+  admin
+  employee
 }
